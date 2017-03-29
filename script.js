@@ -6,10 +6,16 @@
         answers = document.getElementById('answers'),
         body = document.getElementById('body'),
         blackOverlay = document.getElementById('blackOverlay'),
-        answerId = 0,
-        state = null;
+        answerId = 0;
 
     input.focus();
+
+    var state = {
+        "place": "meadow",
+        "description": "You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.",
+        "commands": [ "stand", "forest", "describe" ],
+        "action": "laying"
+    };
 
     (function stayOnBottom() {
         answers.scrollTop = answers.scrollHeight + 1000;
@@ -50,11 +56,11 @@
 
         setTimeout(function () {
             body.className = '';
-        }, 1000);
+        }, 2000);
     }
 
 	document.addEventListener("DOMContentLoaded", function (){
-		say('Hello. Type \'help\' you need to.');
+		say('Whe...^500 where am I? Am I... ^750 laying down?!');
 
         var soundFile = 'sounds/music.mp3';
         var audio = new Audio(soundFile);
@@ -62,11 +68,7 @@
         audio.play();
 	});
 
-    document.addEventListener('click', function () {
-        if (Math.floor((Math.random() * 5) + 1) === 1) {
-            say('No touchy!!');
-        }
-        
+    document.addEventListener('click', function () {      
         input.focus();
     });
 
@@ -74,11 +76,11 @@
         return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
-    function travel(place) {
+    function changeBackground(place) {
         blackOverlay.className = "overlay black visible";
 
         setTimeout(function () {
-            body.style.backgroundImage = 'url("img/background' + place + '.jpg")';
+            body.style.backgroundImage = 'url("img/' + place + '.jpg")';
             blackOverlay.className = "overlay black";
         }, 1000);
     }
@@ -89,73 +91,52 @@
         if (input.value == 'hello' || input.value == 'hi') {
             say('Hello young sir.');
         }
-        else if (input.value.match(/(who|what)(.*)am(.*)i/i)) {
-            say('I don\'t know who you are.');
+        else if (input.value == 'describe' || input.value == 'd') {
+            say(state.description);
         }
-        else if (input.value.match(/(who|what)(.*)are(.*)you/i)) {
-            say('I think I am your assistant.');
+        else if (input.value == 'stand' && state.action == "laying") {
+            state.action = "standing";
+
+            changeBackground("meadow-standing");
+
+            say("You stand up.");
         }
-        else if (input.value.match(/(where)(.*)(are|am)(.*)(we|you|i)/i)) {
-            say('We seem to be in deep space.');
+        else if (input.value == 'meadow' && state.place == "forest") {
+            state.place = "meadow";
+            state.description = "You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.";
+            state.commands = ["forest", "description"];
+
+            changeBackground("meadow-standing");
+
+            say(state.description);
         }
-        else if (input.value.match(/(what)(.*)(time|clock)/i) || input.value == 'time') {
-            say('The current time is ' + new Date());
+        else if (input.value == 'forest' && state.place == "meadow") {
+            state.place = "forest";
+            state.description = "You are now in a dark forrest. Are you sure that's wise at this hour?";
+            state.commands = ["meadow", "talk", "description"];
+
+            changeBackground("forest");
+
+            say(state.description);
         }
-        else if (input.value.match(/(show)(.*)(me)/i)) {
-            say('<img src="img/earth.png" width="200" height="200">');
-        }
-        else if (input.value == 'shake') {
+        else if (input.value == 'talk' && state.place == "forest") {
             shake();
-        }
-        else if (input.value == 'menu') {
-            state = 'menu';
-            say('Who are you?<br>[0] Robot<br>[1] Human<br>[2] Other animal');
+            say("You begin to speak, and suddently you feel the ground moving...");
         }
         else if (input.value == 'clear') {
             answers.innerHTML = '';
         }
-        else if (input.value == 'travel') {
-            say('Where do you wanna go then?<br>[0] Deep space<br>[1] Not so deep space');
-            state = 'travel';
-        }
-        else if (input.value == 'help') {
-            say('Possible commands are:<br><ul><li>hello</li><li>travel</li><li>shake</li><li>clear</li><li>menu</li><li>Who are you?</li><li>Who am I?</li><li>Where are we?</li><li>time</li><li>Show me earth</li></ul>');
-        }
-        else if (state == 'travel' && isNumeric(input.value)) {
-            switch (input.value) {
-                case "0":
-                    say('Buckle up, Betty...');
-                    travel(0);
-                    break;
-                case "1":
-                    say('Awesome. Let\'s go...');
-                    travel(1);
-                    break;
-                default:
-                    say('Walla go where!?');
+        else if (input.value == 'help' || input.value == 'commands') {
+            var commands = "";
+
+            for (var i in state.commands) {
+                commands += "<li>" + state.commands[i] + "</li>";
             }
 
-            state = null;
-        }
-        else if (state == 'menu' && isNumeric(input.value)) {
-            switch (input.value) {
-                case "0":
-                    say('Hmm, you don\'t act like a fellow robot...');
-                    break;
-                case "1":
-                    say('I figured...');
-                    break;
-                case "2":
-                    say('I\'m just glad you are not a human :)');
-                    break;
-                default:
-                    say('Are you stupid or something?');
-            }
-
-            state = null;
+            say('Possible commands are:<br><ul>' + commands + '</ul>');
         }
         else if (input.value == 'quit' || input.value == 'exit') {
-            say('Actually, you seem to be stuck in space where with me.');
+            say('Actually, you there is now where go to.');
         }
         else if (input.value == 'ok' || input.value == 'OK') {
             say('...');
@@ -165,13 +146,13 @@
 
             switch (randomAnswer) {
                 case 1:
-                    say('Excuse me?');
+                    say('Excuse me? Type \'help\' if you need to.');
                     break;
                 case 2:
-                    say('Come again, please?');
+                    say('Come again, please? Type \'help\' if you need to.');
                     break;
                 case 3: 
-                    say('What are you trying to do?');
+                    say('Command is unknown. Type \'help\' if you need to.');
                     break;
             }
         }

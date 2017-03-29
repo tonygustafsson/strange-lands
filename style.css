@@ -28,14 +28,21 @@
     }
 }
 
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
     background: #000;
-    background-image: url('img/background0.jpg'); 
-    background-size: cover;
+    background-image: url('img/meadow-laying.jpg'); 
+    background-size: 100% 100%;
     background-repeat: no-repeat;
-    color: limegreen;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 24px;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    font-family: 'Macondo', cursive;
+    font-size: 26px;
+    height: 100%;
 }
 
 .overlay {
@@ -69,6 +76,10 @@ body {
     display: block;
 }
 
+header h1 {
+    padding: 0 .3em;
+}
+
 article {
     padding: 0 1em;
     animation: flicker;
@@ -82,13 +93,13 @@ article {
     bottom: 10px;
     left: 10px;
     width: calc(100% - 20px);
-    background: #000;
-    color: limegreen;
+    background: rgba(0,0,0,.8);
+    color: #fff;
     height: 2em;
     font-size: 150%;
     padding: 0 1em;
     box-sizing: border-box;
-    font-family: 'Share Tech Mono', monospace;
+    font-family: 'Macondo', cursive;
 }
 
 .answers {
@@ -121,6 +132,7 @@ article {
 
 .shake {
     animation: shake 500ms;
+    animation-iteration-count: 4;
 }
 
 .typed-cursor {
