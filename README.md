@@ -6,3 +6,23 @@ To reach this goal I added some images and music, but you navigate the game
 with the keyboard.
 
 I tried to not give too much instructions, instead you are guided along the way.
+
+## Screenshot
+
+![Strange Lands](strange-lands.png 'Strange Lands')
+
+## Commands so far
+
+-   hello / hi
+-   stand
+-   meadow
+-   forest
+-   talk
+-   talk
+-   clear
+-   help
+-   quit
+
+## Demo
+
+[Try it out](https://www.tonyg.se/projects/strange-lands)
