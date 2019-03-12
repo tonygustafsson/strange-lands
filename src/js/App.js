@@ -3,14 +3,10 @@ import State from './State';
 import Input from './Input';
 import { InitBackgroundSound } from './Sound';
 
-(function game() {
-    'use strict';
-
+const InitGame = () => {
     var input = document.getElementById('input'),
         form = document.getElementById('footer-form'),
-        answers = document.getElementById('answers'),
-        body = document.getElementById('body'),
-        blackOverlay = document.getElementById('blackOverlay');
+        answers = document.getElementById('answers');
 
     input.focus();
 
@@ -30,10 +26,6 @@ import { InitBackgroundSound } from './Sound';
         input.focus();
     });
 
-    function isNumeric(n) {
-        return !isNaN(parseFloat(n)) && isFinite(n);
-    }
-
     form.addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -42,4 +34,6 @@ import { InitBackgroundSound } from './Sound';
         input.value = '';
         input.focus();
     });
-})();
+};
+
+InitGame();
