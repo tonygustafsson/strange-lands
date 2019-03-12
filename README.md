@@ -23,6 +23,15 @@ I tried to not give too much instructions, instead you are guided along the way.
 -   help
 -   quit
 
+## Build it
+
+```
+npm install
+npm build
+```
+
+And just load index.html in a browser.
+
 ## Demo
 
 [Try it out](https://www.tonyg.se/projects/strange-lands)
