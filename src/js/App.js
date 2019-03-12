@@ -1,5 +1,6 @@
 import Typed from 'typed.js';
 import Speak from './Speak';
+import State from './State';
 
 (function game() {
     'use strict';
@@ -11,13 +12,6 @@ import Speak from './Speak';
         blackOverlay = document.getElementById('blackOverlay');
 
     input.focus();
-
-    var state = {
-        place: 'meadow',
-        description: 'You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.',
-        commands: ['stand', 'forest', 'describe'],
-        action: 'laying'
-    };
 
     (function stayOnBottom() {
         answers.scrollTop = answers.scrollHeight + 1000;
@@ -68,31 +62,31 @@ import Speak from './Speak';
         if (input.value == 'hello' || input.value == 'hi') {
             Speak('Hello young sir.');
         } else if (input.value == 'describe' || input.value == 'd') {
-            Speak(state.description);
-        } else if (input.value == 'stand' && state.action == 'laying') {
-            state.action = 'standing';
+            Speak(State.description);
+        } else if (input.value == 'stand' && State.action == 'laying') {
+            State.action = 'standing';
 
             changeBackground('meadow-standing');
 
             Speak('You stand up.');
-        } else if (input.value == 'meadow' && state.place == 'forest') {
-            state.place = 'meadow';
-            state.description =
+        } else if (input.value == 'meadow' && State.place == 'forest') {
+            State.place = 'meadow';
+            State.description =
                 'You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.';
-            state.commands = ['forest', 'description'];
+            State.commands = ['forest', 'description'];
 
             changeBackground('meadow-standing');
 
-            Speak(state.description);
-        } else if (input.value == 'forest' && state.place == 'meadow') {
-            state.place = 'forest';
-            state.description = "You are now in a dark forrest. Are you sure that's wise at this hour?";
-            state.commands = ['meadow', 'talk', 'description'];
+            Speak(State.description);
+        } else if (input.value == 'forest' && State.place == 'meadow' && State.action !== 'laying') {
+            State.place = 'forest';
+            State.description = "You are now in a dark forrest. Are you sure that's wise at this hour?";
+            State.commands = ['meadow', 'talk', 'description'];
 
             changeBackground('forest');
 
-            Speak(state.description);
-        } else if (input.value == 'talk' && state.place == 'forest') {
+            Speak(State.description);
+        } else if (input.value == 'talk' && State.place == 'forest') {
             shake();
             Speak('You begin to speak, and suddently you feel the ground moving...');
         } else if (input.value == 'clear') {
@@ -100,8 +94,8 @@ import Speak from './Speak';
         } else if (input.value == 'help' || input.value == 'commands') {
             var commands = '';
 
-            for (var i in state.commands) {
-                commands += '<li>' + state.commands[i] + '</li>';
+            for (var i in State.commands) {
+                commands += '<li>' + State.commands[i] + '</li>';
             }
 
             Speak('Possible commands are:<br><ul>' + commands + '</ul>');
