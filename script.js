@@ -30,11 +30,13 @@
         var delay = Math.floor(Math.random() * 750 + 1);
 
         var soundFile = 'sounds/answer' + Math.floor(Math.random() * 3 + 1) + '.mp3';
-        var audio = new Audio(soundFile);
+        var answerSound = new Audio(soundFile);
 
-        setTimeout(function() {
-            audio.play();
-        }, delay);
+        answerSound.addEventListener('loadeddata', function() {
+            setTimeout(function() {
+                answerSound.play();
+            }, delay);
+        });
 
         var newParagraph = document.createElement('p');
         newParagraph.id = 'answer-' + answerId;
@@ -63,9 +65,12 @@
         say('Whe...^500 where am I? Am I... ^750 laying down?!');
 
         var soundFile = 'sounds/music.mp3';
-        var audio = new Audio(soundFile);
-        audio.loop = true;
-        audio.play();
+        var backgroundMusic = new Audio(soundFile);
+
+        backgroundMusic.addEventListener('loadeddata', function() {
+            backgroundMusic.loop = true;
+            backgroundMusic.play();
+        });
     });
 
     document.addEventListener('click', function() {
