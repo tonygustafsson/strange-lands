@@ -1,4 +1,5 @@
 import Typed from 'typed.js';
+import { MakeAnswerSound } from './Sound';
 
 let answersBox = document.getElementById('answers'),
     answerId = 0,
@@ -10,14 +11,7 @@ function Speak(htmlString) {
 
     let delay = Math.floor(Math.random() * 750 + 1);
 
-    let soundFile = 'sounds/answer' + Math.floor(Math.random() * 3 + 1) + '.mp3';
-    let answerSound = new Audio(soundFile);
-
-    answerSound.addEventListener('loadeddata', function() {
-        setTimeout(function() {
-            answerSound.play();
-        }, delay);
-    });
+    MakeAnswerSound();
 
     let newParagraph = document.createElement('p');
     newParagraph.id = 'answer-' + answerId;
