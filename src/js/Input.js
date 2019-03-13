@@ -3,12 +3,15 @@ import Speak from './Speak';
 import { ChangeBackground, Shake } from './Background';
 
 const Input = said => {
+    said = said.toLowerCase();
+
     if (said == 'hello' || said == 'hi') {
         Speak('Hello young sir.');
     } else if (said == 'describe' || said == 'd') {
         Speak(State.description);
     } else if (said == 'stand' && State.action == 'laying') {
         State.action = 'standing';
+        State.commands = ['forest', 'describe'];
 
         ChangeBackground('meadow-standing');
 
