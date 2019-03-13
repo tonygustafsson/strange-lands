@@ -2,11 +2,12 @@ import Speak from './Speak';
 import State from './State';
 import Input from './Input';
 import { InitBackgroundSound } from './Sound';
+import '../scss/app.scss';
 
 const InitGame = () => {
-    var input = document.getElementById('input'),
-        form = document.getElementById('footer-form'),
-        answers = document.getElementById('answers');
+    var input = document.getElementsByClassName('js-user-input')[0],
+        form = document.getElementsByClassName('js-user-form')[0],
+        answers = document.getElementsByClassName('answers')[0];
 
     input.focus();
 

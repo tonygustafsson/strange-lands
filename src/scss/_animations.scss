@@ -1,0 +1,49 @@
+@keyframes flicker {
+    50% {
+        filter: grayscale(0);
+    }
+    52% {
+        filter: grayscale(50%);
+    }
+    54% {
+        filter: grayscale(0);
+    }
+    58% {
+        filter: grayscale(100%);
+    }
+    60% {
+        filter: grayscale(0);
+    }
+}
+
+@keyframes visibility {
+    90% {
+        opacity: 0;
+    }
+    94% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes shake {
+    0%,
+    100% {
+        background-position: 0 0;
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        background-position: -10px -10px;
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+        background-position: 10px 10px;
+    }
+}

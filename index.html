@@ -2,10 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
         <link href="https://fonts.googleapis.com/css?family=Macondo" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" media="all" href="style.css" />
 
         <title>Strange Lands</title>
     </head>
@@ -14,13 +13,33 @@
         <div class="overlay noise"></div>
         <div class="overlay black" id="blackOverlay"></div>
 
-        <header><h1>Strange Lands</h1></header>
+        <div class="container">
+            <header class="row">
+                <div class="col mt-3">
+                    <h1>Strange Lands</h1>
+                </div>
+            </header>
 
-        <article><div class="answers" id="answers"></div></article>
+            <main class="row m-3">
+                <div class="col">
+                    <article><div class="answers" id="answers"></div></article>
+                </div>
+            </main>
 
-        <footer>
-            <form id="footer-form"><input type="text" name="input" id="input" class="input" /></form>
-        </footer>
+            <footer class="row">
+                <div class="fixed-bottom">
+                    <form class="js-user-form form-inline pb-1 d-flex">
+                        <input
+                            class="js-user-input user-input form-control flex-fill ml-1 mr-1 mr-md-0"
+                            type="search"
+                            placeholder="Say something..."
+                            aria-label="Search"
+                        />
+                        <button class="btn btn-primary user-input-button ml-1 mr-1 flex-fill flex-md-grow-0" type="submit">Speak</button>
+                    </form>
+                </div>
+            </footer>
+        </div>
 
         <script type="text/javascript" src="dist/bundle.js"></script>
     </body>
