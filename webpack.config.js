@@ -21,7 +21,10 @@ const config = {
                         loader: 'style-loader'
                     },
                     {
-                        loader: 'css-loader'
+                        loader: 'css-loader',
+                        options: {
+                            url: false
+                        }
                     },
                     {
                         loader: 'postcss-loader',

@@ -9,7 +9,7 @@ html {
 
 body {
     background: #000;
-    background-image: url('/img/meadow-laying.jpg');
+    background-image: url('img/meadow-laying.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     color: $white;
@@ -26,7 +26,7 @@ body {
     height: 100%;
 
     &.noise {
-        background: url('/img/noise.png');
+        background: url('img/noise.png');
         animation: visibility;
         animation-duration: 8s;
         animation-iteration-count: infinite;
