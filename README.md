@@ -15,10 +15,12 @@ I tried to not give too much instructions, instead you are guided along the way.
 
 -   hello / hi
 -   stand
+-   lie
 -   meadow
 -   forest
+-   lake
 -   talk
--   talk
+-   drink
 -   clear
 -   help
 -   quit
