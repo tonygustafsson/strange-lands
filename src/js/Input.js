@@ -4,7 +4,6 @@ import { ChangeBackground, Shake } from './Background';
 
 const Input = said => {
     said = said.trim().toLowerCase();
-    console.log(said);
 
     if (said == 'hello' || said == 'hi') {
         Speak('Hello young sir.');
