@@ -1,5 +1,7 @@
 import { ChangeBackground } from './Background';
 
+const localStorageKey = 'gameState';
+
 const initState = {
     place: 'meadow',
     description: 'You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.',
@@ -15,11 +17,15 @@ export const availableCommands = ['forest', 'meadow', 'stand', 'lie', 'describe'
 
 const saveStateToLocalStorage = state => {
     const base64String = btoa(JSON.stringify(state));
-    window.localStorage.setItem('state', base64String);
+    window.localStorage.setItem(localStorageKey, base64String);
+};
+
+const clearLocalStorage = () => {
+    window.localStorage.removeItem(localStorageKey);
 };
 
 const getStateFromLocalStorage = () => {
-    const base64String = window.localStorage.getItem('state');
+    const base64String = window.localStorage.getItem(localStorageKey);
 
     if (base64String) {
         const decodedString = atob(base64String);
@@ -42,8 +48,13 @@ export const setState = changes => {
         newState.description = changes.description;
     }
 
-    if (changes.commands && availableCommands.includes(changes.commands)) {
-        newState.commands = changes.commands;
+    if (changes.commands) {
+        let commandsAreOk = changes.commands.every(c => availableCommands.includes(c));
+
+        if (commandsAreOk) {
+            console.log('New commands', changes.commands);
+            newState.commands = changes.commands;
+        }
     }
 
     if (changes.mode && availableModes.includes(changes.mode)) {
