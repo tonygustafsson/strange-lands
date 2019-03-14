@@ -5,7 +5,7 @@ export const ChangeBackground = (place, mode) => {
     blackOverlay.className = 'overlay black visible';
 
     setTimeout(function() {
-        body.style.backgroundImage = 'url("/img/' + place + '-' + mode + '.jpg")';
+        body.style.backgroundImage = 'url("img/' + place + '-' + mode + '.jpg")';
         blackOverlay.className = 'overlay black';
     }, 500);
 };
