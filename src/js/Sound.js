@@ -28,3 +28,8 @@ export const MakeAnswerSound = () => {
         answerSound.play();
     });
 };
+
+document.querySelector('.js-sound-toggler').addEventListener('click', () => {
+    InitBackgroundSound();
+    document.querySelector('.js-sound-toggler').style.display = 'none';
+});
