@@ -65,21 +65,16 @@ article {
     top: 0;
     left: 20%;
     width: 60%;
-    height: 74vh;
+    height: 75vh;
     overflow-y: auto;
-    padding: 0 1em;
+    padding: 0.5em 1em;
     box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.25);
+    overflow-y: hidden;
 }
 
 .answer {
-    opacity: 0;
-    transform: translateY(1em);
-    transition: opacity 250ms, transform 350ms;
-}
-
-.answer-visible {
-    opacity: 1;
-    transform: translateY(0);
+    text-shadow: 0 0 2px rgb(0, 0, 0);
 }
 
 .shake {
@@ -117,8 +112,8 @@ article {
 
     .answers {
         height: 70vh;
-        left: 2%;
-        width: 98%;
-        padding: 0;
+        left: 0%;
+        width: 100%;
+        padding: 0.5em;
     }
 }

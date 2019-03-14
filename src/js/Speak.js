@@ -15,6 +15,7 @@ function Speak(htmlString) {
 
     let newParagraph = document.createElement('p');
     newParagraph.id = 'answer-' + answerId;
+    newParagraph.className = 'answer';
     answersBox.appendChild(newParagraph);
 
     new Typed('#answer-' + answerId, {

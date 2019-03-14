@@ -9,11 +9,11 @@ const initState = {
     mode: 'laying'
 };
 
-export const availablePlaces = ['meadow', 'forest'];
+export const availablePlaces = ['meadow', 'forest', 'lake'];
 
 export const availableModes = ['standing', 'laying'];
 
-export const availableCommands = ['forest', 'meadow', 'stand', 'lie', 'describe', 'talk'];
+export const availableCommands = ['forest', 'meadow', 'lake', 'stand', 'lie', 'describe', 'talk', 'drink'];
 
 const saveStateToLocalStorage = state => {
     const base64String = btoa(JSON.stringify(state));

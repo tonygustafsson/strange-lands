@@ -7,7 +7,7 @@ export const ChangeBackground = (place, mode) => {
     setTimeout(function() {
         body.style.backgroundImage = 'url("/img/' + place + '-' + mode + '.jpg")';
         blackOverlay.className = 'overlay black';
-    }, 1000);
+    }, 500);
 };
 
 export const Shake = () => {
