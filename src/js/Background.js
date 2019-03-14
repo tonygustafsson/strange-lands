@@ -1,11 +1,11 @@
 const body = document.getElementById('body'),
     blackOverlay = document.getElementById('blackOverlay');
 
-export const ChangeBackground = place => {
+export const ChangeBackground = (place, mode) => {
     blackOverlay.className = 'overlay black visible';
 
     setTimeout(function() {
-        body.style.backgroundImage = 'url("/img/' + place + '.jpg")';
+        body.style.backgroundImage = 'url("/img/' + place + '-' + mode + '.jpg")';
         blackOverlay.className = 'overlay black';
     }, 1000);
 };

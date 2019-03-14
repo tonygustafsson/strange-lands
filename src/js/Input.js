@@ -1,6 +1,6 @@
-import State from './State';
+import { State, setState } from './State';
 import Speak from './Speak';
-import { ChangeBackground, Shake } from './Background';
+import { Shake } from './Background';
 
 const Input = said => {
     said = said.trim().toLowerCase();
@@ -9,28 +9,35 @@ const Input = said => {
         Speak('Hello young sir.');
     } else if (said == 'describe' || said == 'd') {
         Speak(State.description);
-    } else if (said == 'stand' && State.action == 'laying') {
-        State.action = 'standing';
-        State.commands = ['forest', 'describe'];
-
-        ChangeBackground('meadow-standing');
+    } else if (said == 'stand' && State.place === 'meadow' && State.mode == 'laying') {
+        setState({
+            mode: 'standing',
+            commands: ['forest', 'lie', 'describe']
+        });
 
         Speak('You stand up.');
-    } else if (said == 'meadow' && State.place == 'forest') {
-        State.place = 'meadow';
-        State.description =
-            'You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.';
-        State.commands = ['forest', 'description'];
+    } else if (said == 'lie' && State.place === 'meadow' && State.mode == 'standing') {
+        setState({
+            mode: 'laying',
+            commands: ['forest', 'stand', 'describe']
+        });
 
-        ChangeBackground('meadow-standing');
+        Speak('You lie down for a while...');
+    } else if (said == 'meadow' && State.place == 'forest') {
+        setState({
+            place: 'meadow',
+            description:
+                'You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.',
+            commands: ['forest', 'describe']
+        });
 
         Speak(State.description);
-    } else if (said == 'forest' && State.place == 'meadow' && State.action !== 'laying') {
-        State.place = 'forest';
-        State.description = "You are now in a dark forrest. Are you sure that's wise at this hour?";
-        State.commands = ['meadow', 'talk', 'description'];
-
-        ChangeBackground('forest');
+    } else if (said == 'forest' && State.place == 'meadow' && State.mode !== 'laying') {
+        setState({
+            place: 'forest',
+            description: "You are now in a dark forrest. Are you sure that's wise at this hour?",
+            commands: ['meadow', 'talk', 'description']
+        });
 
         Speak(State.description);
     } else if (said == 'talk' && State.place == 'forest') {

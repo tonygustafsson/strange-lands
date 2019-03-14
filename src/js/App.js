@@ -1,5 +1,5 @@
 import Speak from './Speak';
-import State from './State';
+import { State } from './State';
 import Input from './Input';
 import { InitBackgroundSound } from './Sound';
 import '../scss/app.scss';
@@ -18,7 +18,11 @@ const InitGame = () => {
     })();
 
     document.addEventListener('DOMContentLoaded', function() {
-        Speak('Whe...^500 where am I? Am I... ^750 laying down?!');
+        if (State.action && State.action === 'laying') {
+            Speak('Whe...^500 where am I? Am I... ^750 laying down?!');
+        } else {
+            Speak(State.description);
+        }
 
         InitBackgroundSound();
     });
