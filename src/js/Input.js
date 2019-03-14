@@ -3,7 +3,8 @@ import Speak from './Speak';
 import { ChangeBackground, Shake } from './Background';
 
 const Input = said => {
-    said = said.toLowerCase();
+    said = said.trim().toLowerCase();
+    console.log(said);
 
     if (said == 'hello' || said == 'hi') {
         Speak('Hello young sir.');
