@@ -19,7 +19,7 @@ const Input = said => {
             break;
         case 'help':
         case 'h':
-            Speak(`Possible commands are: <ul><li>${State.commands.join('</li><li>')}</li></ul>`);
+            Speak(`Possible commands are: <span class="underlined-text">${State.commands.join('</span>, <span class="underlined-text">')}</span>.`);
             break;
         case 'clear':
         case 'reset':
@@ -80,7 +80,7 @@ const Input = said => {
                     place: 'meadow',
                     description:
                         'You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.',
-                    commands: ['forest', 'describe']
+                    commands: ['forest', 'lie', 'describe']
                 });
 
                 Speak(State.description);
