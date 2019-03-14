@@ -1,10 +1,22 @@
+const getRandomSoundFile = () => {
+    let randomSound = Math.floor(Math.random() * 3) + 1;
+    let soundFile = `sounds/music${randomSound}.mp3`;
+
+    return soundFile;
+};
+
 export const InitBackgroundSound = () => {
-    let soundFile = 'sounds/music.mp3';
+    let soundFile = getRandomSoundFile();
     let backgroundMusic = new Audio(soundFile);
 
-    backgroundMusic.addEventListener('loadeddata', function() {
-        backgroundMusic.loop = true;
+    backgroundMusic.addEventListener('loadeddata', () => {
         backgroundMusic.play();
+    });
+
+    backgroundMusic.addEventListener('ended', () => {
+        let soundFile = getRandomSoundFile();
+        backgroundMusic.src = soundFile;
+        backgroundMusic.load();
     });
 };
 
