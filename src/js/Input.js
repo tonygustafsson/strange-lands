@@ -91,6 +91,7 @@ const Input = said => {
             break;
         case 'forest':
         case 'forrest':
+        case 'woods':
             if (State.place === 'meadow' && State.mode === 'standing') {
                 setState({
                     place: 'forest',

@@ -52,7 +52,6 @@ export const setState = changes => {
         let commandsAreOk = changes.commands.every(c => availableCommands.includes(c));
 
         if (commandsAreOk) {
-            console.log('New commands', changes.commands);
             newState.commands = changes.commands;
         }
     }
