@@ -1,6 +1,7 @@
 import { State, setState, clearLocalStorage } from './State';
 import Speak from './Speak';
 import { Shake } from './Background';
+import { Place, GoTo, DoAction } from './Places';
 
 const Input = said => {
     said = said.trim().toLowerCase();
@@ -35,10 +36,10 @@ const Input = said => {
         // Actions
 
         case 'stand':
-            if (State.place === 'meadow' && State.mode === 'laying') {
+            if (State.place.name === 'meadow' && State.mode === 'laying') {
                 setState({
                     mode: 'standing',
-                    commands: ['forest', 'lie', 'describe']
+                    commands: ['woods', 'lie', 'describe']
                 });
 
                 Speak('You stand up.');
@@ -49,10 +50,10 @@ const Input = said => {
             break;
         case 'lie':
         case 'lay':
-            if (State.place === 'meadow' && State.mode === 'standing') {
+            if (State.place.name === 'meadow' && State.mode === 'standing') {
                 setState({
                     mode: 'laying',
-                    commands: ['forest', 'stand', 'describe']
+                    commands: ['woods', 'stand', 'describe']
                 });
 
                 Speak('You lie down for a while...');
@@ -63,7 +64,7 @@ const Input = said => {
             break;
         case 'talk':
         case 'speak':
-            if (State.place === 'forest') {
+            if (State.place.name === 'woods') {
                 Shake();
                 Speak('You begin to speak, and suddently you feel the ground moving...');
             } else {
@@ -72,7 +73,7 @@ const Input = said => {
 
             break;
         case 'drink':
-            if (State.place === 'lake') {
+            if (State.place.name === 'lake') {
                 Speak('The water tastes like minerals. You should probably not drink too much of this?');
             } else {
                 Speak("There isn't any water here...");
@@ -83,15 +84,8 @@ const Input = said => {
         // Change place
 
         case 'meadow':
-            if (State.place === 'forest') {
-                setState({
-                    place: 'meadow',
-                    description:
-                        'You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.',
-                    commands: ['forest', 'lie', 'describe']
-                });
-
-                Speak(State.description);
+            if (GoTo('meadow')) {
+                Speak(State.place.description);
             } else {
                 Speak('You cannot go to the meadow from here.');
             }
@@ -100,28 +94,16 @@ const Input = said => {
         case 'forest':
         case 'forrest':
         case 'woods':
-            if ((State.place === 'meadow' || State.place === 'lake') && State.mode === 'standing') {
-                setState({
-                    place: 'forest',
-                    description: "You are now in a dark forrest. Are you sure that's wise at this hour?",
-                    commands: ['meadow', 'lake', 'talk', 'describe']
-                });
-
-                Speak(State.description);
+            if (GoTo('woods')) {
+                Speak(State.place.description);
             } else {
-                Speak('You cannot go to the forest from here.');
+                Speak('You cannot go to the woods from here.');
             }
 
             break;
         case 'lake':
-            if (State.place === 'forest') {
-                setState({
-                    place: 'lake',
-                    description: 'You arrive to a calm lake. You hear nothing but a crow somewhere far away and trees whizzing.',
-                    commands: ['forest', 'drink', 'describe']
-                });
-
-                Speak(State.description);
+            if (GoTo('lake')) {
+                Speak(State.place.description);
             } else {
                 Speak('Do you see any lake anywhere?!');
             }
