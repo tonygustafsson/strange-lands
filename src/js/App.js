@@ -21,7 +21,7 @@ const InitGame = () => {
         if (State.action && State.action === 'laying') {
             Speak('Whe...^500 where am I? Am I... ^750 laying down?!');
         } else {
-            Speak(State.description);
+            Speak(State.place.description);
         }
 
         InitBackgroundSound();

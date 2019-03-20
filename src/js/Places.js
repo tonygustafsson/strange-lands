@@ -3,10 +3,11 @@ import { State, setState } from './State';
 export const Places = {
     meadow: {
         name: 'meadow',
-        description: 'You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.',
+        description:
+            'You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.',
         commands: ['stand', 'describe'],
         availablePlaces: ['woods'],
-        availaleActions: {
+        availableActions: {
             lie: {
                 description: 'You lie down for a while...',
                 mode: 'laying'
@@ -21,13 +22,26 @@ export const Places = {
         name: 'woods',
         description: "You are now in a dark forrest. Are you sure that's wise at this hour?",
         commands: ['meadow', 'lake', 'talk', 'describe'],
-        availablePlaces: ['meadow', 'lake']
+        modeRequired: 'standing',
+        availablePlaces: ['meadow', 'lake'],
+        availableActions: {
+            speak: {
+                description: 'You begin to speak, and suddently you feel the ground moving...',
+                mode: 'standing'
+            }
+        }
     },
     lake: {
         name: 'lake',
         description: 'You arrive to a calm lake. You hear nothing but a crow somewhere far away and trees whizzing.',
         commands: ['woods', 'drink', 'describe'],
-        availablePlaces: ['woods']
+        availablePlaces: ['woods'],
+        availableActions: {
+            drink: {
+                description: 'The water tastes like minerals. You should probably not drink too much of this?',
+                mode: 'standing'
+            }
+        }
     }
 };
 
@@ -42,6 +56,10 @@ export const GoTo = placeString => {
         return false;
     }
 
+    if (Object.hasOwnProperty.call(place, 'modeRequired') && place.modeRequired !== State.mode) {
+        return false;
+    }
+
     setState({
         place: place
     });
@@ -50,15 +68,19 @@ export const GoTo = placeString => {
 };
 
 export const DoAction = actionString => {
-    let action = State.place.availableActions[actionString];
+    let action = Object.hasOwnProperty.call(State.place.availableActions, actionString)
+        ? State.place.availableActions[actionString]
+        : null;
 
     if (action === null) {
         return false;
     }
 
-    setState({
-        mode: action.mode
-    });
+    if (action.mode) {
+        setState({
+            mode: action.mode
+        });
+    }
 
-    return true;
+    return action.description;
 };

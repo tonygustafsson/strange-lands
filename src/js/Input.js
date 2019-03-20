@@ -16,16 +16,20 @@ const Input = said => {
         case 'describe':
         case 'description':
         case 'd':
-            Speak(State.description);
+            Speak(State.place.description);
             break;
         case 'help':
         case 'h':
-            Speak(`Possible commands are: <span class="underlined-text">${State.commands.join('</span>, <span class="underlined-text">')}</span>.`);
+            Speak(
+                `Possible commands are: <span class="underlined-text">${State.commands.join(
+                    '</span>, <span class="underlined-text">'
+                )}</span>.`
+            );
             break;
         case 'clear':
         case 'reset':
             answers.innerHTML = '';
-            Speak(State.description);
+            Speak(State.place.description);
             break;
         case 'quit':
         case 'q':
@@ -36,27 +40,19 @@ const Input = said => {
         // Actions
 
         case 'stand':
-            if (State.place.name === 'meadow' && State.mode === 'laying') {
-                setState({
-                    mode: 'standing',
-                    commands: ['woods', 'lie', 'describe']
-                });
-
-                Speak('You stand up.');
+            let standAction = DoAction('stand');
+            if (standAction) {
+                Speak(standAction);
             } else {
-                Speak("Aren't you standing already?");
+                Speak('You cannot stand up here.?');
             }
 
             break;
         case 'lie':
         case 'lay':
-            if (State.place.name === 'meadow' && State.mode === 'standing') {
-                setState({
-                    mode: 'laying',
-                    commands: ['woods', 'stand', 'describe']
-                });
-
-                Speak('You lie down for a while...');
+            let lieAction = DoAction('lie');
+            if (lieAction) {
+                Speak(lieAction);
             } else {
                 Speak('You cannot lie down here...');
             }
@@ -64,19 +60,21 @@ const Input = said => {
             break;
         case 'talk':
         case 'speak':
-            if (State.place.name === 'woods') {
+            let speakAction = DoAction('speak');
+            if (speakAction) {
                 Shake();
-                Speak('You begin to speak, and suddently you feel the ground moving...');
+                Speak(speakAction);
             } else {
                 Speak('Are you talking to yourself?');
             }
 
             break;
         case 'drink':
-            if (State.place.name === 'lake') {
-                Speak('The water tastes like minerals. You should probably not drink too much of this?');
+            let drinkAction = DoAction('drink');
+            if (drinkAction) {
+                Speak(drinkAction);
             } else {
-                Speak("There isn't any water here...");
+                Speak("There aren't any water here...");
             }
 
             break;

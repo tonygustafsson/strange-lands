@@ -5,14 +5,8 @@ const localStorageKey = 'gameState';
 
 const initState = {
     place: Places.meadow,
-    description: 'You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.',
-    commands: ['stand', 'describe'],
     mode: 'laying'
 };
-
-export const availableModes = ['standing', 'laying'];
-
-export const availableCommands = ['woods', 'meadow', 'lake', 'stand', 'lie', 'describe', 'talk', 'drink'];
 
 const saveStateToLocalStorage = state => {
     const base64String = btoa(JSON.stringify(state));
@@ -43,24 +37,12 @@ export const setState = changes => {
         newState.place = changes.place;
     }
 
-    if (changes.description) {
-        newState.description = changes.description;
-    }
-
-    if (changes.commands) {
-        let commandsAreOk = changes.commands.every(c => availableCommands.includes(c));
-
-        if (commandsAreOk) {
-            newState.commands = changes.commands;
-        }
-    }
-
-    if (changes.mode && availableModes.includes(changes.mode)) {
+    if (changes.mode) {
         newState.mode = changes.mode;
     }
 
-    if (newState.place !== State.place || newState.mode !== State.mode) {
-        ChangeBackground(newState.place, newState.mode);
+    if (newState.place.name !== State.place.name || newState.mode !== State.mode) {
+        ChangeBackground(newState.place.name, newState.mode);
     }
 
     saveStateToLocalStorage(newState);
@@ -72,4 +54,4 @@ export const setState = changes => {
 const localStorageState = getStateFromLocalStorage();
 export let State = localStorageState ? localStorageState : initState;
 
-ChangeBackground(State.place, State.mode);
+ChangeBackground(State.place.name, State.mode);
