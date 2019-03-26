@@ -3,8 +3,7 @@ import { State, setState } from './State';
 export const Places = {
     meadow: {
         name: 'meadow',
-        description:
-            'You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.',
+        description: 'You feel green grass under you bare foots. You seem to be on some kind of meadow. No one is around, and nature makes almost no sounds.',
         commands: ['stand', 'describe'],
         availablePlaces: ['woods'],
         availableActions: {
@@ -15,6 +14,14 @@ export const Places = {
             stand: {
                 description: 'You stand up and stretch your legs.',
                 mode: 'standing'
+            }
+        },
+        objects: {
+            stars: {
+                description: 'You get carried away when you look at the clear sky. All those small balls of gas. You feel so so small.'
+            },
+            trees: {
+                description: "You see a forrest line ahead of you. It's kind of dark so maybe you should wait on going there until tomorrow?"
             }
         }
     },
@@ -29,6 +36,17 @@ export const Places = {
                 description: 'You begin to speak, and suddently you feel the ground moving...',
                 mode: 'standing'
             }
+        },
+        objects: {
+            tree: {
+                description: 'This tree looks weird... can you push those panels?'
+            },
+            sky: {
+                description: 'The sky is dim at this hour and kind of greenish.'
+            },
+            ground: {
+                description: "The ground is moist and mushy. But it's fine if you follow the trail."
+            }
         }
     },
     lake: {
@@ -40,6 +58,17 @@ export const Places = {
             drink: {
                 description: 'The water tastes like minerals. You should probably not drink too much of this?',
                 mode: 'standing'
+            }
+        },
+        objects: {
+            water: {
+                description: 'The water is calm. Too calm... you see a fish making rings too your right.'
+            },
+            sky: {
+                description: 'The sky is eerie and the clouds are too many to count. The sun is going down to your left.'
+            },
+            shore: {
+                description: "It's to dark to see the other shore..."
             }
         }
     }
@@ -68,9 +97,7 @@ export const GoTo = placeString => {
 };
 
 export const DoAction = actionString => {
-    let action = Object.hasOwnProperty.call(State.place.availableActions, actionString)
-        ? State.place.availableActions[actionString]
-        : null;
+    let action = Object.hasOwnProperty.call(State.place.availableActions, actionString) ? State.place.availableActions[actionString] : null;
 
     if (action === null) {
         return false;
@@ -83,4 +110,19 @@ export const DoAction = actionString => {
     }
 
     return action.description;
+};
+
+export const GetObjectDescription = object => {
+    if (typeof object === 'undefined') {
+        // Describe the place, not an object
+        return State.place.description;
+    }
+
+    let obj = Object.hasOwnProperty.call(State.place.objects, object) ? State.place.objects[object] : null;
+
+    if (obj === null) {
+        return 'You cannot see ' + object + ' here.';
+    }
+
+    return obj.description;
 };

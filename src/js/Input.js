@@ -1,27 +1,25 @@
 import { State, setState, clearLocalStorage } from './State';
 import Speak from './Speak';
 import { Shake } from './Background';
-import { Place, GoTo, DoAction } from './Places';
+import { Place, GoTo, DoAction, GetObjectDescription } from './Places';
 
 const Input = said => {
     said = said.trim().toLowerCase();
+    let words = said.split(' ');
 
-    switch (said) {
+    switch (words[0]) {
         // Global basics
 
         case 'hello':
         case 'hi':
-            Speak('Hello young sir.');
-            break;
-        case 'describe':
-        case 'description':
-        case 'd':
-            Speak(State.place.description);
+            Speak('Hello young one.');
             break;
         case 'help':
         case 'h':
             Speak(
-                `Possible commands are: <span class="underlined-text">${State.commands.join(
+                `Possible commands are: <span class="underlined-text">${State.place.commands.join(
+                    '</span>, <span class="underlined-text">'
+                )}</span>.<br />Available objects: <span class="underlined-text">${Object.keys(State.place.objects).join(
                     '</span>, <span class="underlined-text">'
                 )}</span>.`
             );
@@ -76,6 +74,13 @@ const Input = said => {
             } else {
                 Speak("There aren't any water here...");
             }
+
+            break;
+        case 'look':
+        case 'see':
+        case 'watch':
+        case 'describe':
+            Speak(GetObjectDescription(words[1]));
 
             break;
 
