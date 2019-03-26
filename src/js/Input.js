@@ -17,10 +17,10 @@ const Input = said => {
         case 'help':
         case 'h':
             Speak(
-                `Possible commands are: <span class="underlined-text">${State.place.commands.join(
-                    '</span>, <span class="underlined-text">'
-                )}</span>, <span class="underlined-text">describe ${Object.keys(State.place.objects).join(
-                    '</span>, <span class="underlined-text">describe '
+                `Possible commands are: <span class="help-command">${State.place.commands.join(
+                    '</span>, <span class="help-command">'
+                )}</span>, <span class="help-command">describe ${Object.keys(State.place.objects).join(
+                    '</span>, <span class="help-command">describe '
                 )}</span>.`
             );
             break;
