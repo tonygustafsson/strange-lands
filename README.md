@@ -21,6 +21,9 @@ I tried to not give too much instructions, instead you are guided along the way.
 -   lake
 -   talk
 -   drink
+-   describe
+    -   describe tree
+    -   describe sky
 -   clear
 -   help
 -   quit
