@@ -19,8 +19,8 @@ const Input = said => {
             Speak(
                 `Possible commands are: <span class="underlined-text">${State.place.commands.join(
                     '</span>, <span class="underlined-text">'
-                )}</span>.<br />Available objects: <span class="underlined-text">${Object.keys(State.place.objects).join(
-                    '</span>, <span class="underlined-text">'
+                )}</span>, <span class="underlined-text">describe ${Object.keys(State.place.objects).join(
+                    '</span>, <span class="underlined-text">describe '
                 )}</span>.`
             );
             break;
