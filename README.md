@@ -9,24 +9,24 @@ I tried to not give too much instructions, instead you are guided along the way.
 
 ## Screenshot
 
-![Strange Lands](strange-lands.png 'Strange Lands')
+![Strange Lands](strange-lands.png "Strange Lands")
 
 ## Commands so far
 
--   hello / hi
--   stand
--   lie
--   meadow
--   woods
--   lake
--   talk
--   drink
--   describe
-    -   describe tree
-    -   describe sky
--   clear
--   help
--   quit
+- hello / hi
+- stand
+- lie
+- meadow
+- woods
+- lake
+- talk
+- drink
+- describe
+  - describe tree
+  - describe sky
+- clear
+- help
+- quit
 
 ## Build it
 
@@ -39,4 +39,4 @@ And just load index.html in a browser.
 
 ## Demo
 
-[Try it out](https://www.tonyg.se/projects/strange-lands)
+[Try it out](https://strange-lands.vercel.app/)
